@@ -1,0 +1,70 @@
+<html>
+<body>
+
+	<h1>{{restaurant.name}} Menu</h1>
+
+	<a href="#">Create New Menu Item</a>
+
+	{% if items %}
+	<h2>Appetizers</h2>
+	<ul>
+		{% for i in items %}
+		{% if i.course == 'Appetizer' %}
+		<li>
+			<p>{{i.name}}</p>
+			<p>{{i.price}}</p>
+			<p>{{i.description}}</p>
+			<a href="#">Edit</a>
+			<a href="#">Delete</a>
+		</li>
+		{% endif %}
+		{% endfor %}
+	</ul>
+	<h2>Entrees</h2>
+	<ul>
+		{% for i in items %}
+		{% if i.course == 'Entree' %}
+		<li>
+			<p>{{i.name}}</p>
+			<p>{{i.price}}</p>
+			<p>{{i.description}}</p>
+			<a href="#">Edit</a>
+			<a href="#">Delete</a>
+		</li>
+		{% endif %}
+		{% endfor %}
+	</ul>
+	<h2>Desserts</h2>
+	<ul>
+		{% for i in items %}
+		{% if i.course == 'Dessert' %}
+		<li>
+			<p>{{i.name}}</p>
+			<p>{{i.price}}</p>
+			<p>{{i.description}}</p>
+			<a href="#">Edit</a>
+			<a href="#">Delete</a>
+		</li>
+		{% endif %}
+		{% endfor %}
+	</ul>
+	<h2>Beverages</h2>
+	<ul>
+		{% for i in items %}
+		{% if i.course == 'Beverage' %}
+		<li>
+			<p>{{i.name}}</p>
+			<p>{{i.price}}</p>
+			<p>{{i.description}}</p>
+			<a href="#">Edit</a>
+			<a href="#">Delete</a>
+		</li>
+		{% endif %}
+		{% endfor %}
+	</ul>
+	{% else %}
+	<p>This restaurant has currently no menu items</p>
+	{% endif %}
+
+</body>
+</html>
