@@ -1,17 +1,17 @@
-<html>
-<body>
+{% extends "base.html" %}
 
-	<h1>Edit Restaurant</h1>
-	
-	<form method="post">
-		<label>
-			Name:
-			<input type="text" size=30 name="name" placeholder="{{restaurant.name}}">
-		</label>
-		<input type="submit" value="Edit">
-	</form>
+{% block content %}
+  <h1>Edit Restaurant</h1>
+  
+  <div class="pane">
+    <form method="post">
+      <label>
+        Name:
+        <input type="text" size=30 name="name" placeholder="{{restaurant.name}}">
+      </label>
+      <input type="submit" value="Edit">
+    </form>
 
-	<a href="{{url_for('showRestaurants')}}">Cancel</a>
-
-</body>
-</html>
+    <a href="{{url_for('showRestaurants')}}">Cancel</a>
+  </div>
+{% endblock %}

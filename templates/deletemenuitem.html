@@ -1,13 +1,13 @@
-<html>
-<body>
+{% extends "base.html" %}
 
-	<h1>Are you sure you want to delete {{item.name}}?</h1>
+{% block content %}
+  <h1>Are you sure you want to delete {{item.name}}?</h1>
 
-	<form method="post">
-		<input type="submit", value="Delete">
-	</form>
+  <div class="pane">
+    <form method="post">
+      <input type="submit", value="Delete">
+    </form>
 
-	<a href="{{url_for('showMenu', restaurant_id=restaurant_id)}}">Cancel</a>
-
-</body>
-</html>
+    <a href="{{url_for('showMenu', restaurant_id=restaurant_id)}}">Cancel</a>
+  </div>
+{% endblock %}

@@ -1,14 +1,14 @@
-<html>
-<body>
+{% extends "base.html" %}
 
-	<h1>New Restaurant</h1>
-	<form method="post">
-		<label>
-			Name:
-			<input type="text" size=30 name="name">
-		</label>
-		<input type="submit" value="Create">
-	</form>
-
-</body>
-</html>
+{% block content %}
+  <h1>New Restaurant</h1>
+  <div class="pane">
+    <form method="post">
+      <label>
+        Name:
+        <input type="text" size=30 name="name">
+      </label>
+      <input type="submit" value="Create">
+    </form>
+  </div>
+{% endblock %}

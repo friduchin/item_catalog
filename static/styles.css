@@ -1,0 +1,64 @@
+body {
+	font-family: sans-serif;
+	color: #393838;
+	background: url('background.jpg') no-repeat;
+	background-size: cover;
+	background-color: #333333;
+}
+
+h1 {
+	color: #F7F1DB;
+	border-bottom: 2px solid #F7F1DB;
+	text-shadow: 1px 1px 2px #333333;
+}
+
+A:link, A:visited, A:active, A:hover {
+	color: #393838;
+}
+
+input, textarea {
+	font-size: 1em;
+	color: #393838;
+	border: solid;
+	border-width: 1px;
+	border-color: #818080;
+}
+
+.flash {
+	border: 2px solid;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 5px auto;
+    border-color: #F7F1DB;
+    background-color: #393838;
+    width: 70%;
+    color: #F7F1DB;
+}
+
+.pane {
+	border: 2px solid;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 5px auto;
+    border-color: #393838;
+    background-color: #F7F1DB;
+    width: 70%;
+}
+
+.name {
+	text-decoration: none;
+}
+
+.menuSection {
+	border-bottom: 1px double #393838;
+}
+
+.pane > div:last-of-type {
+	border: none;
+}
+
+input[type="submit"] {
+	color: #F7F1DB;
+	background-color: #393838;
+	border-radius: 5px;
+}

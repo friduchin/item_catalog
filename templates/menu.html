@@ -1,40 +1,42 @@
-<html>
-<body>
+{% extends "base.html" %}
 
-	<h1>{{restaurant.name}} Menu</h1>
+{% block content %}
+  <h1>{{restaurant.name}} Menu</h1>
 
-	<div class="flash">
-		{% with messages = get_flashed_messages() %}
-		{% if messages %}
-		<ul>
-			{% for message in messages %}
-		<li> <strong> {{ message }} </strong> </li>
-		{% endfor %}
-		</ul>
-		{% endif %}
-		{% endwith %}
-	</div>
+  <div class="flash">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+      {% for message in messages %}
+    <li> <strong> {{ message }} </strong> </li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+  </div>
 
-	<a href="{{url_for('newMenuItem', restaurant_id=restaurant.id)}}">Create New Menu Item</a>
+  <a class="pane" href="{{url_for('newMenuItem', restaurant_id=restaurant.id)}}">+ Create New Menu Item</a>
 
-	{% if items %}
-	{% for course, menu_items in items.items() %}
-	<h2>{{course}}</h2>
-	<ul>
-		{% for i in menu_items %}
-		<li>
-			<p>{{i.name}}</p>
-			<p>{{i.price}}</p>
-			<p>{{i.description}}</p>
-			<a href="{{url_for('editMenuItem', restaurant_id=restaurant.id, menu_id=i.id)}}">Edit</a>
-			<a href="{{url_for('deleteMenuItem', restaurant_id=restaurant.id, menu_id=i.id)}}">Delete</a>
-		</li>
-		{% endfor %}
-	</ul>
-	{% endfor %}
-	{% else %}
-	<p>This restaurant has currently no menu items</p>
-	{% endif %}
-
-</body>
-</html>
+  <div class="pane">
+    {% if items %}
+    {% for course, menu_items in items.items() %}
+    <div class="menuSection">
+    <h2>{{course}}</h2>
+    <ul>
+      {% for i in menu_items %}
+      <li>
+        <h3>{{i.name}}</h3>
+        <p>{{i.price}}</p>
+        <p>{{i.description}}</p>
+        <a href="{{url_for('editMenuItem', restaurant_id=restaurant.id, menu_id=i.id)}}">Edit</a>
+        <a href="{{url_for('deleteMenuItem', restaurant_id=restaurant.id, menu_id=i.id)}}">Delete</a>
+      </li>
+      {% endfor %}
+    </ul>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>This restaurant has currently no menu items</p>
+    {% endif %}
+  </div>
+{% endblock %}
