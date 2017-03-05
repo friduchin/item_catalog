@@ -3,7 +3,7 @@
 
 	<h1>Restaurants</h1>
 
-	<a href="#">Create New Restaurant</a>
+	<a href="{{url_for('newRestaurant')}}">Create New Restaurant</a>
 
 	{% if restaurants %}
 	<ul>
@@ -11,8 +11,8 @@
 		<li>
 			<p>{{restaurant.name}}</p>
 			<p> {{restaurant.description}}</p>
-			<a href="#">Edit</a>
-			<a href="#">Delete</a>
+			<a href="{{url_for('editRestaurant', restaurant_id=restaurant.id)}}">Edit</a>
+			<a href="{{url_for('deleteRestaurant', restaurant_id=restaurant.id)}}">Delete</a>
 		</li>
 		{% endfor %}
 	</ul>
