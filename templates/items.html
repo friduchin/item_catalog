@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% include "header.html" %}
   <h1>{{category.name}} Items ({{count}} item{% if count != 1 %}s{% endif %})</h1>
 
   <div class="flash">

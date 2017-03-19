@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% include "header.html" %}
   <h1>Categories</h1>
 
     {% with messages = get_flashed_messages() %}
@@ -28,7 +29,9 @@
   </div>
   <div>
     <h2>Latest Items</h2>
+    {% if 'username' in session %}
     <a class="pane" href="{{url_for('newItem')}}">+ Create New Item</a>
+    {% endif %}
     {% if items %}
     <ul>
       {% for item in items %}
