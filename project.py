@@ -332,6 +332,26 @@ def deleteItem(item_name):
     return render_template('deleteitem.html', item=itemToDelete)
 
 
+#JSON APIs to view Catalog Information
+@app.route('/catalog/JSON')
+def catalogJSON():
+  categories = db_session.query(Category).all()
+  return jsonify(Categories=[c.serialize for c in categories])
+
+
+@app.route('/catalog/category/<int:category_id>/JSON')
+def categoryJSON(category_id):
+  category = db_session.query(Category).get(category_id)
+  items = db_session.query(Item).filter_by(category_id=category_id).all()
+  return jsonify(Items=[i.serialize for i in items])
+
+
+@app.route('/catalog/item/<int:item_id>/JSON')
+def itemJSON(item_id):
+  item = db_session.query(Item).get(item_id)
+  return jsonify(Item=item.serialize)
+
+
 if __name__ == '__main__':
   app.secret_key = 'super_secret_key'
   app.debug = True
