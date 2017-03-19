@@ -269,7 +269,7 @@ def showItems(category_name):
 def showItem(category_name, item_name):
   category = db_session.query(Category).filter_by(name=category_name).one()
   item = db_session.query(Item).filter_by(name=item_name,category_id=category.id).one()
-  return render_template('item.html', item=item)
+  return render_template('item.html', item=item, creator=item.user)
 
 
 @app.route('/catalog/item/new', methods=['GET', 'POST'])

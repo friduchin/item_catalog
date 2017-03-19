@@ -2,13 +2,20 @@
 
 {% block content %}
 {% include "header.html" %}
-  <h1>Are you sure you want to delete {{item.name}}?</h1>
-
-  <div class="pane">
-    <form method="post">
-      <input type="submit", value="Delete">
-    </form>
-
-    <a href="{{url_for('showItem', category_name=item.category.name, item_name=item.name)}}">Cancel</a>
+  <div class="row divider green">
+    <div class="col-md-12"></div>
   </div>
+  <div class="row banner">
+    <div class="col-md-11 col-md-offset-1 padding-none">
+      <h1>Are you sure you want to delete {{item.name}}?</h1>
+    </div>
+  </div>
+  <form method="post">
+    <button type="submit" class="btn btn-default delete" id="submit">
+      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>Delete</button>
+    <a href = "{{url_for('showItem', category_name=item.category.name, item_name=item.name)}}">
+      <button type="button" class="btn btn-default delete">
+      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Cancel</button>
+    </a>
+  </form>
 {% endblock %}

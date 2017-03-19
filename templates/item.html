@@ -2,7 +2,19 @@
 
 {% block content %}
 {% include "header.html" %}
-  <h1>{{item.name}}</h1>
+  <div class="row divider green">
+    <div class="col-md-12"></div>
+  </div>
+  <div class="row banner">
+    <div class="col-md-11 col-md-offset-1 padding-none">
+      <h1>{{item.name}}
+      <figure class="creator">
+        <img src="{{creator.picture}}">
+        <figcaption>{{creator.name}}</figcaption>
+      </figure>
+      </h1>
+    </div>
+  </div>
 
   <div class="flash">
     {% with messages = get_flashed_messages() %}
@@ -16,11 +28,11 @@
     {% endwith %}
   </div>
 
-  <div class="pane">
+  <div class="menu-item">
     <p>{{item.description}}</p>
     {% if 'username' in session %}
     <p>
-      <a href="{{url_for('editItem', item_name=item.name)}}">Edit</a>
+      <a href="{{url_for('editItem', item_name=item.name)}}">Edit</a> | 
       <a href="{{url_for('deleteItem', item_name=item.name)}}">Delete</a>
     </p>
     {% endif %}

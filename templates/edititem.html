@@ -2,30 +2,46 @@
 
 {% block content %}
 {% include "header.html" %}
-  <h1>Edit Item</h1>
+  <div class="row divider green">
+    <div class="col-md-12"></div>
+  </div>
+  <div class="row banner menu">
+    <div class="col-md-11 col-md-offset-1 padding-none">
+      <h1>Edit Item</h1>
+    </div>
+  </div>
   
-  <div class="pane">
-    <form method="post">
-      <div>
-        <p>Name:</p>
-        <input type="text" size=30 name="name" placeholder="{{item.name}}">
-      </div>
-      <div>
-        <p>Description:</p>
-        <textarea cols=28 name="description" placeholder="{{item.description}}"></textarea>
-      </div>
-      <div>
-        <p>Category:</p>
-        <select name="category">
-          <option selected disabled>Select category</option>
-          {% for category in categories %}
-          <option value="{{category.id}}">{{category.name}}</option>
-          {% endfor %}
-        </select>
-      </div>
-      <input type="submit" value="Edit">
-    </form>
-
-    <a href="{{url_for('showItem', category_name=item.category.name, item_name=item.name)}}">Cancel</a>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-1 padding-top">
+      <form action="#" method = "post">
+        <div class="form-group">
+          <p>
+            <label for="name">Name:</label>
+            <input type ="text" maxlength="100" class="form-control" name="name" value="{{item.name}}">
+          </p>
+          <p>
+            <label for="description">Description:</label>
+            <textarea class="form-control" maxlength="250" rows="3" name="description">{{item.description}}</textarea>
+          </p>
+          <p>
+            <label for="category">Category:</label>
+            <select name="category">
+              <option disabled>Select category</option>
+              {% for category in categories %}
+              <option value="{{category.id}}" {% if category.id == item.category_id %} selected {% endif %}>{{category.name}}</option>
+              {% endfor %}
+            </select>
+          </p>
+          <p>
+            <button type="submit" class="btn btn-default" id="submit">
+            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Save</button>
+            <a href = "{{url_for('showItem', category_name=item.category.name, item_name=item.name)}}">
+              <button type="button" class="btn btn-default delete">
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Cancel</button>
+            </a>
+          </p>
+        </div>
+      </form>
+    </div>
   </div>
 {% endblock %}
