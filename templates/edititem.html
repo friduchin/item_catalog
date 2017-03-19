@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Edit Item</h1>
+  
+  <div class="pane">
+    <form method="post">
+      <div>
+        <p>Name:</p>
+        <input type="text" size=30 name="name" placeholder="{{item.name}}">
+      </div>
+      <div>
+        <p>Description:</p>
+        <textarea cols=28 name="description" placeholder="{{item.description}}"></textarea>
+      </div>
+      <div>
+        <p>Category:</p>
+        <select name="category">
+          <option selected disabled>Select category</option>
+          {% for category in categories %}
+          <option value="{{category.id}}">{{category.name}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <input type="submit" value="Edit">
+    </form>
+
+    <a href="{{url_for('showItem', category_name=item.category.name, item_name=item.name)}}">Cancel</a>
+  </div>
+{% endblock %}

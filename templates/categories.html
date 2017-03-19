@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Categories</h1>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="flash">
+      <ul>
+        {% for message in messages %}
+      <li> <strong> {{ message }} </strong> </li>
+      {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+    {% endwith %}
+
+  <div>
+  {% if categories %}
+    <ul>
+      {% for category in categories %}
+      <li><a class="name" href="{{url_for('showItems', category_name=category.name)}}">{{category.name}}</a></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are currently no categories</p>
+  {% endif %}
+  </div>
+  <div>
+    <h2>Latest Items</h2>
+    <a class="pane" href="{{url_for('newItem')}}">+ Create New Item</a>
+    {% if items %}
+    <ul>
+      {% for item in items %}
+      <li>
+        <a href="{{url_for('showItem', category_name=item.category.name, item_name=item.name)}}">{{item.name}}</a>
+        ({{item.category.name}})
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>There are currently no items</p>
+    {% endif %}
+  </div>
+{% endblock %}

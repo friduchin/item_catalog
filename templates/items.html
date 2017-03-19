@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{category.name}} Items ({{count}} item{% if count != 1 %}s{% endif %})</h1>
+
+  <div class="flash">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+      {% for message in messages %}
+    <li> <strong> {{ message }} </strong> </li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+  </div>
+
+  <div class="pane">
+    {% if items %}
+    <ul>
+      {% for item in items %}
+      <li><a href="{{url_for('showItem', category_name=item.category.name, item_name=item.name)}}">{{item.name}}</a></li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>There are currently no items in this category</p>
+    {% endif %}
+  </div>
+{% endblock %}
