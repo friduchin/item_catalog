@@ -320,14 +320,15 @@ def deleteItem(item_name):
   if 'username' not in login_session:
     return redirect('/login')
   itemToDelete = db_session.query(Item).filter_by(name=item_name).one()
+  category = itemToDelete.category
   if itemToDelete.user_id != login_session['user_id']:
     flash('Items May Be Deleted Only By Its Creator')
-    return redirect(url_for('showItem', category_name=itemToDelete.category.name, item_name=itemToDelete.name))
+    return redirect(url_for('showItem', category_name=category.name, item_name=itemToDelete.name))
   if request.method == 'POST':
     db_session.delete(itemToDelete)
     db_session.commit()
     flash('Item Successfully Deleted')
-    return redirect(url_for('showItems', category_name=itemToDelete.category.name))
+    return redirect(url_for('showItems', category_name=category.name))
   else:
     return render_template('deleteitem.html', item=itemToDelete)
 
