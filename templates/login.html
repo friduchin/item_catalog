@@ -7,8 +7,19 @@
 </head>
 
 <body>
+  <div id="flash">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+      {% for message in messages %}
+      <li> <strong> {{ message }} </strong> </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+  </div>
 <!-- GOOGLE PLUS SIGN IN-->
-  <div id="signInButton">
+  <div id="gButton">
     <span class="g-signin"
       data-scope="openid email"
       data-clientid="188509526772-f0md1shgl3du8e26fomp319ame35d7ap.apps.googleusercontent.com"
@@ -24,8 +35,10 @@
   <script>
   function signInCallback(authResult) {
     if (authResult['code']) {
-      // Hide the sign-in button now that the user is authorized
-      $('#signinButton').attr('style', 'display: none');
+      // Hide the sign-in buttons and flash messages now that the user is authorized
+      $('#gButton').attr('style', 'display: none');
+      $('#fbButton').attr('style', 'display: none');
+      $('#flash').attr('style', 'display: none');
       // Send the one-time-use code to the server, if the server responds, write a 'login successful' message to the web page and then redirect back to the main restaurants page
       $.ajax({
         type: 'POST',
@@ -36,7 +49,7 @@
         success: function(result) {
           // Handle or verify the server response if necessary.
           if (result) {
-            $('#result').html('Login Successful!</br>'+ result + '</br>Redirecting...')
+            $('#result').html('Login Successful!' + result.replace('</h1>', '</h1>Redirecting...'))
            setTimeout(function() {
             window.location.href = "/catalog";
            }, 3000);
@@ -75,6 +88,9 @@
 
   function sendTokenToServer() {
     var access_token = FB.getAuthResponse()['accessToken'];
+    $('#fbButton').attr('style', 'display: none');
+    $('#gButton').attr('style', 'display: none');
+    $('#flash').attr('style', 'display: none');
     console.log('Welcome! Fetching your access token...');
     console.log('Access token: ' + access_token);
     FB.api('/me', function(response) {
@@ -88,7 +104,7 @@
         success: function(result) {
           // Handle of verify the server response if necessary
           if (result) {
-            $('#result').html('Login Successful!</br>'+ result + '</br>Redirecting...')
+            $('#result').html('Login Successful!' + result.replace('</h1>', '</h1>Redirecting...'))
            setTimeout(function() {
             window.location.href = "/catalog";
            }, 3000);
@@ -101,7 +117,7 @@
     });
   }
   </script>
-  <div>
+  <div id="fbButton">
     <fb:login-button scope="public_profile,email" onlogin="sendTokenToServer();">
       <a href='javascript:sendTokenToServer()'>Login with Facebook</a>
     </fb:login-button>

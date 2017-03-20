@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for, request, redirect, jsonify, flash, make_response
 from flask import session as login_session
+from functools import wraps
 
 from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker
@@ -249,6 +250,17 @@ def getUserId(email):
     return None
 
 
+def loginRequired(f):
+  @wraps(f)
+  def decoratedFunction(*args, **kwargs):
+    if 'username' in login_session:
+      return f(*args, **kwargs)
+    else:
+      flash('You are not allowed to access there. Please log in first.')
+      return redirect(url_for('showLogin'))
+  return decoratedFunction
+
+
 @app.route('/')
 @app.route('/catalog')
 def showCategories():
@@ -273,9 +285,8 @@ def showItem(category_name, item_name):
 
 
 @app.route('/catalog/item/new', methods=['GET', 'POST'])
+@loginRequired
 def newItem():
-  if 'username' not in login_session:
-    return redirect('/login')
   if request.method == 'POST':
     category = db_session.query(Category).get(request.form['category'])
     newItem = Item(
@@ -293,9 +304,8 @@ def newItem():
 
 
 @app.route('/catalog/<string:item_name>/edit', methods=['GET', 'POST'])
+@loginRequired
 def editItem(item_name):
-  if 'username' not in login_session:
-    return redirect('/login')
   editedItem = db_session.query(Item).filter_by(name=item_name).one()
   if editedItem.user_id != login_session['user_id']:
     flash('Items May Be Edited Only By Its Creator')
@@ -316,9 +326,8 @@ def editItem(item_name):
 
 
 @app.route('/catalog/<string:item_name>/delete', methods=['GET', 'POST'])
+@loginRequired
 def deleteItem(item_name):
-  if 'username' not in login_session:
-    return redirect('/login')
   itemToDelete = db_session.query(Item).filter_by(name=item_name).one()
   category = itemToDelete.category
   if itemToDelete.user_id != login_session['user_id']:
