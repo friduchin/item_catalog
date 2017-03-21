@@ -28,6 +28,8 @@ user = User(
   name='Daria',
   email='example@gmail.com',
   picture='http://idge.staticworld.net/images/reddit.svg')
+session.add(user)
+session.commit()
 
 items = [
 {
