@@ -83,16 +83,16 @@ def gconnect():
         response.headers['Content-Type'] = 'application/json'
         return response
     # Check to see if user is already logged in
-    stored_credentials = login_session.get('credentials')
+    stored_token = login_session.get('access_token')
     stored_gplus_id = login_session.get('gplus_id')
-    if stored_credentials is not None and gplus_id == stored_gplus_id:
+    if stored_token is not None and gplus_id == stored_gplus_id:
         response = make_response(
             json.dumps('Current user is already connected'), 200)
         response.headers['Content-Type'] = 'application/json'
         return response
 
     # Store the access token in the session for latter use
-    login_session['credentials'] = credentials
+    login_session['access_token'] = credentials.access_token
     login_session['gplus_id'] = gplus_id
 
     # Get user info
@@ -125,14 +125,13 @@ def gconnect():
 
 def gdisconnect():
     # Only disconnect a connected user
-    credentials = login_session.get('credentials')
-    if credentials is None:
+    access_token = login_session.get('access_token')
+    if access_token is None:
         response = make_response(
             json.dumps('Current user is not connected'), 401)
         response.headers['Content-Type'] = 'application/json'
         return response
     # Execute HTTP GET request to revoke current token
-    access_token = credentials.access_token
     url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % access_token
     h = httplib2.Http()
     result = h.request(url, 'GET')[0]
@@ -232,7 +231,7 @@ def disconnect():
         if login_session['provider'] == 'google':
             gdisconnect()
             del login_session['gplus_id']
-            del login_session['credentials']
+            del login_session['access_token']
         if login_session['provider'] == 'facebook':
             fbdisconnect()
             del login_session['facebook_id']
